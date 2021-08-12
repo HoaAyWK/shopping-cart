@@ -10,6 +10,7 @@ var MongoStore = require('connect-mongo');
 
 var productRoute = require('./routes/product.route');
 var userRoute = require('./routes/user.route');
+var cartRoute = require(('./routes/cart.route'));
 
 var app = express();
 var port = 3000;
@@ -46,6 +47,7 @@ app.use((req, res, next) => {
 });
 app.use('/', productRoute);
 app.use('/user', userRoute);
+app.use('/cart', cartRoute);
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
 });

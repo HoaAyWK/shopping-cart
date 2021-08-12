@@ -22,7 +22,7 @@ block content
                                 h5 Price: $
                                     span= product.price
                                 .d-flex.justify-content-center
-                                    a.btn.btn-primary(href='#') Add to cart
+                                    a.btn.btn-primary(href='/cart/add-to-cart/'+product._id) Add to cart
             nav(aria-label='Search results pages')
             ul.pagination.justify-content-center
                 #priviousPage

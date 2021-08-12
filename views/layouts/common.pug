@@ -13,10 +13,12 @@ html
               span.navbar-toggler-icon
             #navbarContent.collapse.navbar-collapse
               ul.navbar-nav.me-auto.mb-2.mb-lg-0
-                li.nav-item
-                  a.nav-link(href='#')
+                li.nav-item.position-relative
+                  a.nav-link(href='/cart/shopping-cart')
                     i.fas.fa-shopping-cart
                     |  Shopping Cart
+                    if session.cart
+                      span.position-absolute.top-10.start-100.translate-middle.badge.rounded-pill.bg-danger= session.cart.totalQty
               ul.navbar-nav
                 li.nav-item.dropdown
                   a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-bs-toggle='dropdown', aria-haspopup='true', aria-expanded='false')

@@ -1,0 +1,56 @@
+extends ../layouts/common
+
+block content
+    if products
+        .row.mb-3
+            .col-sm-8.offset-sm-2.cod-md-8.offset-md-2
+                h1.text-center Products in Cart
+                table.table
+                    thead.table-light
+                        tr
+                            td
+                                .d-flex.justify-content-center Title
+                            td
+                                .d-flex.justify-content-center Price
+                            td
+                                .d-flex.justify-content-center Quantity
+                            td
+                                .d-flex.justify-content-center Action
+                    tbody
+                        each product in products
+                            tr
+                                td= product.item.title
+                                td
+                                    .d-flex.justify-content-center
+                                        span $
+                                        span= product.item.price
+                                td
+                                    .d-flex.justify-content-center
+                                        span.badge.rounded-pill.bg-danger= product.qty
+                                td
+                                    .d-flex.justify-content-end
+                                        btn-group
+                                        button.btn.btn-primary.dropdown-toggle(data-bs-toggle='dropdown',type='button') Action
+                                        ul.dropdown-menu
+                                            li
+                                                a.dropdown-item(href='/cart/reduce/'+product.item._id) Remove by 1
+                                            li
+                                                a.dropdown-item(href='/cart/remove/'+product.item._id) Remove all
+        .row.mb-3
+            .col-sm-8.offset-sm-2.cod-md-8.offset-md-2
+                .text-end
+                    strong Total:
+                        span &nbsp
+                        span= totalPrice
+                    hr
+                button.btn.btn-primary.float-end Checkout
+    else
+        .row.mb-3
+            .col-sm-8.offset-sm-2.cod-md-8.offset-md-2
+                .alert.alert-info
+                    h1.mt-5.text-center Cart is empty!
+
+
+
+
+
