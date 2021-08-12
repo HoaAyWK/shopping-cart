@@ -28,6 +28,11 @@ app.use(session({secret: process.env.SESSION_SECRET,
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.signin = req.isAuthenticated();
+    next();
+});
 app.use('/', productRoute);
 app.use('/user', userRoute);
 app.listen(port, () => {

@@ -19,6 +19,11 @@ module.exports.signin = (req, res, next) => {
     });
 };
 
+module.exports.signout = (req, res, next) => {
+    req.logout();
+    res.redirect('/');
+};
+
 module.exports.postSignup = passport.authenticate('local.signup', {
     successRedirect: '/user/profile',
     failureRedirect: '/user/signup',
