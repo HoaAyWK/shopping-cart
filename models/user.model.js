@@ -12,8 +12,9 @@ var salt = bcrypt.genSaltSync(10);
 userSchema.methods.encryptPassword = password =>
     bcrypt.hashSync(password, salt);
 
-userSchema.methods.validPassword = password =>
-    bcrypt.compareSync(password, this.password);
+userSchema.methods.validPassword = (password, hashPassword) => {
+    return bcrypt.compareSync(password, hashPassword);
+};
 
 var User = mongoose.model('User', userSchema);
 

@@ -11,10 +11,10 @@ block content
             form.mt-5(action='/user/signup', method='POST')
                 .mb-3
                     label.form-label(for='email') Email address
-                    input#email.form-control(name='email', type='text', value=values? value:'')
+                    input#email.form-control(name='email', type='text')
                 .mb-3
                     label.form-label(for='password') Password
-                    input#password.form-control(name='password', type='password', value=values? value:'')
+                    input#password.form-control(name='password', type='password')
                     input(name='_csrf', type='hidden', value=csrfToken)
                 .text-center
                     button.btn.btn-primary(style='width: 50%;') Signup

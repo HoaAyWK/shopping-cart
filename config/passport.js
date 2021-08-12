@@ -41,3 +41,28 @@ passport.use('local.signup', new LocalStrategy({
         });
     }
 ));
+
+passport.use('local.signin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+    },
+    (req, email, password, done) => {
+        var errors = validationResult(req).array();
+        var messages = [];
+        if (errors.length > 0) {
+            errors.forEach(error => {
+                messages.push(error.msg);
+            });
+            return done(null, false, req.flash('error', messages));
+        }
+        User.findOne({email: email}, (err, user) => {
+            if (err) return done(err);
+            if (!user)
+                return done(null, false, {message: 'User does not exist.'});
+            if (!user.validPassword(password, user.password))
+                return done(null, false, {message: 'Wrong password.'});
+            return done(null, user);
+        });
+    }
+));
