@@ -24,6 +24,10 @@ module.exports.signout = (req, res, next) => {
     res.redirect('/');
 };
 
+module.exports.profile = (req, res, next) => {
+    res.render('user/profile');
+};
+
 module.exports.postSignup = passport.authenticate('local.signup', {
     successRedirect: '/user/profile',
     failureRedirect: '/user/signup',
@@ -36,6 +40,3 @@ module.exports.postSignin = passport.authenticate('local.signin', {
     failureFlash: true
 });
 
-module.exports.profile = (req, res, next) => {
-    res.render('user/profile');
-};

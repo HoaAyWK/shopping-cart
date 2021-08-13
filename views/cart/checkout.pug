@@ -1,0 +1,23 @@
+extends ../layouts/common
+
+block content
+    .row.mb-3
+            .col-sm-6.offset-sm-3.cod-md-6.offset-md-3
+                .bd-red-200.p-3.mt-5(style='border-radius: 10px; background-color: #f1aeb5;')
+                    h2.text-center.pt-5 Checkout
+                    h3.text-center Your Total:
+                        span &nbsp
+                        span $
+                        span= totalPrice
+                    form.mt-3(action='/cart/checkout', id='checkout-form', method='POST', style='background-color: #f8f9fa; padding: 10px; border-radius: 10px;')
+                        label.form-label(for='name') Name
+                        input#name.form-control(name='name', type='text', required)
+                        label.form-label(for='address') Address
+                        input#address.form-control(name='address', type='text', required)
+                        #card-element.mt-3
+                        #card-error(role='alert')
+                        .text-center.mt-3
+                            button.btn.btn-primary(type='submit', style='width: 50%;') Submit Payment
+block footer
+    script(src='https://js.stripe.com/v3/')
+    script(src='/javascripts/cart.js')

@@ -43,12 +43,12 @@ block content
                         span &nbsp
                         span= totalPrice
                     hr
-                button.btn.btn-primary.float-end Checkout
+                a.btn.btn-primary.float-end(href='/cart/checkout', type='button') Checkout
     else
         .row.mb-3
             .col-sm-8.offset-sm-2.cod-md-8.offset-md-2
-                .alert.alert-info
-                    h1.mt-5.text-center Cart is empty!
+                .mt-3.p-5(style='background-color: #290661; border-radius: 10px; color: #ddd;')
+                    h2.mt-5.text-center Cart is empty.
 
 
 

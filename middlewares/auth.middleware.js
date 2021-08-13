@@ -1,13 +1,13 @@
 module.exports.isSignedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
-        next();
+        return next();
     }
     res.redirect('/');
 };
 
 module.exports.notSignedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        next();
+        return next();
     }
     res.redirect('/');
 };

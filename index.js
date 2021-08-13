@@ -1,6 +1,7 @@
 require('dotenv').config();
 var express = require('express');
 var mongoose = require('mongoose');
+var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -36,6 +37,7 @@ app.use(session({
     store: MongoStore.create({ clientPromise: clientPromise }),
     cookies: { maxAge: 120 * 60 * 1000 }
 }));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

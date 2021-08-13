@@ -1,5 +1,9 @@
+require('dotenv').config();
+var stripe = require('stripe')(process.env.SECRET_KEY);
+
 var Cart = require('../models/cart.model');
 var Product = require('../models/product.model');
+var Order = require('../models/order.model');
 
 module.exports.cart = (req, res, next) => {
     var productId = req.params.id;
@@ -45,4 +49,45 @@ module.exports.remove = (req, res, next) => {
     cart.remove(productId);
     req.session.cart = cart;
     res.redirect('/cart/shopping-cart');
+};
+
+module.exports.complete = (req, res, next) => {
+    res.render('cart/complete');
+};
+
+module.exports.checkout = (req, res, next) => {
+    if (!req.session.cart) {
+        return res.redirect('/shopping-cart');
+    }
+    var cart = new Cart(req.session.cart);
+    res.render('cart/checkout', { totalPrice: cart.totalPrice });
+};
+
+module.exports.postCheckout = (req, res, next) => {
+    if (!req.session.cart) {
+        return res.redirect('/shopping-cart');
+    }
+    var cart = new Cart(req.session.cart);
+
+    stripe.charges.create({
+        amount: cart.totalPrice * 100,
+        currency: 'usd',
+        source: req.body.stripeToken,
+        description: 'Test charge'
+    }, async (err, charge) => {
+        if (err) {
+            console.log(error.message);
+            req.flash('error', err.message);
+            return res.redirect('/cart/checkout');
+        }
+        var order = await Order.create({
+            user: req.user,
+            cart: cart,
+            name: req.body.name,
+            address: req.body.address,
+            paymentId: charge.id
+        });
+        req.session.cart = null;
+        res.redirect('/cart/complete');
+    });
 };

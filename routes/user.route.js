@@ -11,10 +11,9 @@ router.use(csrfProtection);
 
 router.get('/profile', authMiddleware.isSignedIn, userController.profile);
 router.get('/signout', authMiddleware.isSignedIn, userController.signout);
-router.get('/', authMiddleware.notSignedIn, (req, res, next) => { next() });
+router.use('/', authMiddleware.notSignedIn, (req, res, next) => {next()});
 router.get('/signup', userController.signup);
 router.get('/signin', userController.signin);
-
 
 router.post('/signup', [
   check('email', 'Invalid E-mail').not().isEmpty().isEmail(),
