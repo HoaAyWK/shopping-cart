@@ -1,5 +1,7 @@
 var passport = require('passport');
 var User = require('../models/user.model');
+var Order = require('../models/order.model');
+var Cart = require('../models/cart.model');
 
 module.exports.signup = (req, res, next) => {
     var messages = req.flash('error');
@@ -25,7 +27,14 @@ module.exports.signout = (req, res, next) => {
 };
 
 module.exports.profile = (req, res, next) => {
-    res.render('user/profile');
+    Order.find({user: req.user}, (err, orders) => {
+        if (err) return res.write('Error!');
+        orders.forEach(order => {
+            var cart = new Cart(order.cart);
+            order.items = cart.generateArray();
+        });
+        res.render('user/profile', {orders: orders});
+    });
 };
 
 module.exports.postSignup = passport.authenticate('local.signup', {

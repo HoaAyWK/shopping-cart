@@ -1,4 +1,29 @@
 extends ../layouts/common
 
 block content
-    h1 User Detail
+    .row
+        .col-sm-6.offset-sm-3.col-md-6.offset-md-3
+            .text-center.mt-3
+                h1.p-1.ms-5.me-5(style='background-color: #efadce; border-radius: 5px;') User profile
+            h2.text-center.mt-3 Your Orders
+            if orders
+                each order in orders
+                    div.p-1.mb-5(style='border-radius: 5px; background-color: #fecba1;')
+                        ol.list-group
+                            each item in order.items
+                                .list-group-item.d-flex.justify-content-between.align-items-start
+                                    .ms-2.me-auto
+                                        .fw-bold= item.item.title
+                                        p
+                                            | Quantity:
+                                            span &nbsp
+                                            span= item.qty
+                                    span.p-1.badges.bg-info.rounded-pill
+                                        | $
+                                        span= item.price
+                        .text-center
+                            h2
+                                | Total: $
+                                span= order.cart.totalPrice
+
+
