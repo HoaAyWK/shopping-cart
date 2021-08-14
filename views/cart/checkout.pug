@@ -1,5 +1,8 @@
 extends ../layouts/common
 
+block header
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
 block content
     .row.mb-3
             .col-sm-6.offset-sm-3.cod-md-6.offset-md-3
@@ -14,10 +17,9 @@ block content
                         input#name.form-control(name='name', type='text', required)
                         label.form-label(for='address') Address
                         input#address.form-control(name='address', type='text', required)
-                        #card-element.mt-3
+                        #card-element.mt-3(style="padding: 5px; border-radius: 5px; background-color: #cfe2ff;")
                         #card-error(role='alert')
                         .text-center.mt-3
                             button.btn.btn-primary(type='submit', style='width: 50%;') Submit Payment
 block footer
-    script(src='https://js.stripe.com/v3/')
     script(src='/javascripts/cart.js')
