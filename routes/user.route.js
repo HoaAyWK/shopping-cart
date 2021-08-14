@@ -19,10 +19,10 @@ router.post('/signup', [
   check('email', 'Invalid E-mail').not().isEmpty().isEmail(),
   check('password', 'Invalid password').not().isEmpty()
   .isLength({min: 4}).withMessage('Password is too short')
-  ], userController.postSignup);
+  ], userController.postSignup, userController.redirectOption);
 router.post('/signin', [
   check('email', 'Invalid E-mail').not().isEmpty().isEmail(),
   check('password', 'Invalid password').not().isEmpty()
-  ], userController.postSignin);
+  ], userController.postSignin, userController.redirectOption);
 
 module.exports = router;

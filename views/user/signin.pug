@@ -18,4 +18,9 @@ block content
                     input(name='_csrf', type='hidden', value=csrfToken)
                 .text-center
                     button.btn.btn-primary(style='width: 50%;') Signin
+                .text-end
+                    p
+                        | Doesn't have an account?
+                        span &nbsp
+                        a(href='/user/signup') Sign Up
             .col-sm-4
