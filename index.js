@@ -12,6 +12,7 @@ var MongoStore = require('connect-mongo');
 var productRoute = require('./routes/product.route');
 var userRoute = require('./routes/user.route');
 var cartRoute = require(('./routes/cart.route'));
+var apiProductRoute = require('./api/routes/product.route');
 
 var app = express();
 var port = 3000;
@@ -29,6 +30,7 @@ app.set('views', './views');
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(express.json());
 app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -50,6 +52,7 @@ app.use((req, res, next) => {
 app.use('/', productRoute);
 app.use('/user', userRoute);
 app.use('/cart', cartRoute);
+app.use('/api/products', apiProductRoute);
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
 });
