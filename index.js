@@ -13,6 +13,7 @@ var productRoute = require('./routes/product.route');
 var userRoute = require('./routes/user.route');
 var cartRoute = require(('./routes/cart.route'));
 var apiProductRoute = require('./api/routes/product.route');
+var apiUserRoute = require('./api/routes/user.route');
 
 var app = express();
 var port = 3000;
@@ -53,6 +54,7 @@ app.use('/', productRoute);
 app.use('/user', userRoute);
 app.use('/cart', cartRoute);
 app.use('/api/products', apiProductRoute);
+app.use('/api/users', apiUserRoute);
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
 });
